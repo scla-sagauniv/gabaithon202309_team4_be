@@ -20,6 +20,18 @@ cursor = conn.cursor()
 
 # 以下にコード作成
 
+# 以下にコード作成
+id = 1
+# データの読み込み
+cursor.execute("DELETE FROM users WHERE id = 3 ;")
+print("delete complete")
+cursor.execute("SELECT * FROM users")
+rows = cursor.fetchall()
+# コンソールに出力
+for row in rows:
+    print("Data row = (%s, %s, %s, %s)" % (str(row[0]),str(row[1]),str(row[2]), str(row[3])))
+
+
 
 # 保存・終了
 conn.commit()
