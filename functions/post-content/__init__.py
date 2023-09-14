@@ -40,6 +40,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     else:
         insert_query = "INSERT INTO opinions (genre, content, status) VALUES (%s, %s, %s);"
         cursor.execute(insert_query, (genre, content, status))
+        conn.commit()
+        cursor.close()
+        conn.close()
         print("finish")
         return func.HttpResponse(
             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",

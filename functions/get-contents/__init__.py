@@ -44,6 +44,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         for row in rows:
             print("Data row = (%s, %s, %s, %s)" %
                   (str(row[0]), str(row[1]), str(row[2]), str(row[3])))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
         return func.HttpResponse(
             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
             status_code=200
