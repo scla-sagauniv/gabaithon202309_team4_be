@@ -14,7 +14,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     # 接続情報の構成と接続
     host = os.environ['SERVER_NAME']
-    dbname = "contents"
+    dbname = "users"
     user = os.environ['ADMIN_USERNAME']
     password = os.environ['ADMIN_PASSWORD']
     sslmode = "require"
@@ -32,24 +32,25 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         except ValueError:
             pass
         else:
-            name = req_body.get('name')
+            new_email = req_body.get('email')
+            new_username = req_body.get('username')
+            new_password = req_body.get('password')
 
     if name:
         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
     else:
-        # データの読み込み
-        cursor.execute("SELECT * FROM opinions WHERE status = 0 ;")
-        rows = cursor.fetchall()
-        print("rows", rows)
-        # コンソールに出力
-        for row in rows:
-            print("Data row = (%s, %s, %s, %s)" %
-                  (str(row[0]), str(row[1]), str(row[2]), str(row[3])))
+        # 新しいデータをデータベースに挿入
+        cursor.execute(
+            "INSERT INTO users (email, username, password, status) VALUES (%s, %s, %s, %s);",
+            (new_email, new_username, new_password, 0)
+        )
+
+        # 保存・終了
         conn.commit()
         cursor.close()
         conn.close()
 
         return func.HttpResponse(
-            json.dumps(rows),
+            "signin successfully",
             status_code=200
         )

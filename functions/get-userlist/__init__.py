@@ -14,7 +14,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     # 接続情報の構成と接続
     host = os.environ['SERVER_NAME']
-    dbname = "contents"
+    dbname = "users"
     user = os.environ['ADMIN_USERNAME']
     password = os.environ['ADMIN_PASSWORD']
     sslmode = "require"
@@ -37,14 +37,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if name:
         return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
     else:
-        # データの読み込み
-        cursor.execute("SELECT * FROM opinions WHERE status = 0 ;")
+        cursor.execute("SELECT * FROM users ;")
         rows = cursor.fetchall()
-        print("rows", rows)
         # コンソールに出力
         for row in rows:
             print("Data row = (%s, %s, %s, %s)" %
                   (str(row[0]), str(row[1]), str(row[2]), str(row[3])))
+
         conn.commit()
         cursor.close()
         conn.close()
