@@ -26,7 +26,7 @@ cursor.execute(
 print("Finished creating contents table")
 
 cursor.execute(
-    "INSERT INTO opinions (genre, content) VALUES (%s, %s);", ("other", "hogehoge"))
+    "INSERT INTO opinions (genre, content, status) VALUES (%s, %s, %s);", ("other", "hogehoge", 0))
 
 cursor.execute("SELECT * FROM opinions;")
 rows = cursor.fetchall()
