@@ -25,7 +25,7 @@ cursor.execute("SELECT * FROM opinions WHERE status = 0 ;")
 rows = cursor.fetchall()
 # コンソールに出力
 for row in rows:
-    print("Data row = (%s, %s)" % (str(row[0]),str(row[1]),str(row[2]), str(row[3])))
+    print("Data row = (%s, %s, %s, %s)" % (str(row[0]),str(row[1]),str(row[2]), str(row[3])))
 
 # 保存・終了
 conn.commit()
