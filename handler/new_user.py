@@ -19,6 +19,17 @@ print("Connection established")
 cursor = conn.cursor()
 
 # 以下にコード作成
+#e-mail,username,passwordをデータベースに追加する
+# ユーザーからの新しい入力
+new_email = "new.email@example.com"
+new_username = "new_username"
+new_password = "new_password"
+
+# 新しいデータをデータベースに挿入
+cursor.execute(
+    "INSERT INTO users (email, username, password) VALUES (%s, %s, %s);", 
+    (new_email, new_username, new_password)
+)
 
 
 # 保存・終了
